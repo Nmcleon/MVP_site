@@ -4,7 +4,10 @@
   "description": "site using MERN",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node backend/server.js",
+    "dev"  : "SET NODE_ENV=DEVELOPMENT& nodemon backend/server",
+    "prod" : "SET NODE_ENV=DEVELOPMENT& nodemon backend/server"
   },
   "author": "Noah K",
   "license": "ISC",
@@ -12,5 +15,8 @@
     "dotenv": "^16.4.1",
     "express": "^4.18.2",
     "mongoose": "^8.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
   }
 }
