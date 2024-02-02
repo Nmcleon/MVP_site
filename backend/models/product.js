@@ -3,7 +3,7 @@ const { default: mongoose } = require('mongoose')
 const productSchema = new mongoose.Schema({
 	name: {
 		type: String,
-		required: [type, 'Enter Product Name'],
+		required: [true, 'Enter Product Name'],
 		trim: true,
 		maxLength: [100,  "Product name can't be more than 100 characters"]
 	},

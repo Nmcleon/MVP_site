@@ -1,0 +1,69 @@
+[
+	{
+	  "name": "Chardonnay",
+	  "price": 25.99,
+	  "description": "A classic white wine with a smooth taste.",
+	  "ratings": 4.5,
+	  "images": [
+		{
+		  "public_id": "chardonnay-img1",
+		  "url": "https://example.com/chardonnay-img1.jpg"
+		},
+		{
+		  "public_id": "chardonnay-img2",
+		  "url": "https://example.com/chardonnay-img2.jpg"
+		}
+	  ],
+	  "category": "White Wine",
+	  "seller": "WineryXYZ",
+	  "stock": 50,
+	  "numOfReviews": 10,
+	  "reviews": [
+		{
+		  "name": "John Doe",
+		  "rating": 4.5,
+		  "comment": "Great taste, highly recommended!"
+		},
+		{
+		  "name": "Jane Smith",
+		  "rating": 5.0,
+		  "comment": "Excellent wine, will buy again."
+		}
+	  ],
+	  "createdAt": "2024-02-03T00:00:00.000Z"
+	},
+	{
+	  "name": "Merlot",
+	  "price": 18.99,
+	  "description": "A smooth red wine with rich flavors.",
+	  "ratings": 4.2,
+	  "images": [
+		{
+		  "public_id": "merlot-img1",
+		  "url": "https://example.com/merlot-img1.jpg"
+		},
+		{
+		  "public_id": "merlot-img2",
+		  "url": "https://example.com/merlot-img2.jpg"
+		}
+	  ],
+	  "category": "Red Wine",
+	  "seller": "VineyardABC",
+	  "stock": 30,
+	  "numOfReviews": 8,
+	  "reviews": [
+		{
+		  "name": "Alice Johnson",
+		  "rating": 4.0,
+		  "comment": "Enjoyed the depth of flavors."
+		},
+		{
+		  "name": "Bob Williams",
+		  "rating": 4.3,
+		  "comment": "Great value for the price."
+		}
+	  ],
+	  "createdAt": "2024-02-03T00:00:00.000Z"
+	}
+  ]
+  
