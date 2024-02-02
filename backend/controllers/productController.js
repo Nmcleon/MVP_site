@@ -20,6 +20,6 @@ exports.getProducts = async (req, res, next) => {
 		sucess: true,
 		count: products.length,
 		message:  'List of all products',
-		products
+		data: products
 	})
 }
