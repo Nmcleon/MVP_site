@@ -59,6 +59,14 @@ class APIFeatures {
 		this.query = this.query.find(JSON.parse(queryStr));
 		return this;
 	  }
+
+	  pagination(resPerPage) {
+		const currentPage = parseInt(this.queryStr.page, 10) || 1; // Use parseInt
+		const skip = resPerPage * (currentPage - 1);
+	  
+		this.query = this.query.limit(resPerPage).skip(skip);
+		return this;
+	  }	  
 	  
   }
   
