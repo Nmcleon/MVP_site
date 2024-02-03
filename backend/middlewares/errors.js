@@ -5,6 +5,13 @@ module.exports = (err, req, res, next) => {
 	err.statusCode = err.statusCode || 500;
 	err.message = err.message || 'Internal Server Err';
 
+	//for production 
+	//wrong Mongoose Object ID Error
+	if(err.name === 'CaseError') {
+		const message = `Resource not found. Invalid: ${err.path}`
+		error = new ErrorHandler(message, 400)
+	}
+
 	res.status(err.statusCode).json({
 		sucess: false,
 		error: err.message,
