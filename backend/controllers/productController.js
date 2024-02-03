@@ -29,23 +29,23 @@ exports.getProducts = async (req, res, next) => {
 //Get single Product => /api/vi/products/:id
 
 exports.getSingleProduct = async (req, res, next) => {
+	try {
+		const product = await Product.findById(req.params.id);
 
-	const product = await Product.findById(req.params.id);
+		if (!product) {
+			return next(new ErrorHandler('Product not found', 404));
+		}
 
-	if (!product) {
-		return next(new ErrorHandler('Product not found', 404));
-	}/**err
-		return res.status(404).json({
-			success: false,
-			message: 'Product not found'
-		})
-	}*/
+		res.status(200).json({
+			success: true,
+			data: product
+		});
 
-	res.status(200).json({
-		success:true,
-		data: product
-	})
+	} catch (err) {
+		next(err);
+	}
 }
+
 
 // Update product => /api/v1/admin/products/:id
 exports.updateProduct = async (req, res, next) => {
