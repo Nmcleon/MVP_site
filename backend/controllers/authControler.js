@@ -2,6 +2,7 @@ const User = require('../models/user');
 
 const ErrorHandler = require('../utils/errorHandler');
 const catchAsyncError = require('../middlewares/catchAsyncErrors');
+const { TokenExpiredError } = require('jsonwebtoken');
 
 
 // Register a User => /api/v1/register
@@ -28,4 +29,34 @@ exports.registerUser = catchAsyncError( async(req, res, next) => {
 		})
 })
 
-//
+//  login User
+exports.loginUser = catchAsyncError( async(req, res, next) => {
+	const { email, password } = req.body;
+
+	// Check if Email and password  exist
+	if(!email || !password) {
+		return next (new ErrorHandler("Please provide an email and password", 400));
+	}
+
+	//find user i db
+	const user = await User.findOne({ email }).select('+password')
+
+	if(!user) {
+		return next(new ErrorHandler('Invalid Email or Password', 401));
+
+	}
+
+	//Check if Pasword is  correct
+	const  isPasswordMatched = await user.comparePasswords(password);
+
+	if(!isPasswordMatched) {
+		return next(new ErrorHandler('Invalid Email or Password', 401));
+	}
+
+	const  token = user.getJwtToken();
+
+	res.status(200).json({
+		success: true,
+		token
+	})
+})
