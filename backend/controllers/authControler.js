@@ -4,8 +4,10 @@ const ErrorHandler = require('../utils/errorHandler');
 const catchAsyncError = require('../middlewares/catchAsyncErrors');
 const { TokenExpiredError } = require('jsonwebtoken');
 const sendToken = require('../utils/jwtToken');
-const user = require('../models/user');
 const sendEmail = require('../utils/sendEmail');
+const crypto = require('crypto');
+const user = require('../models/user');
+
 
 // Register a User => /api/v1/register
 
@@ -62,7 +64,34 @@ exports.forgotPassword = catchAsyncError(async (req, res, next) => {
 	  await user.save({ validateBeforeSave: false });
 	  return next(new ErrorHandler(err.message, 500));
 	}
-  })  
+  })
+  
+  // forgot Password => /api/v1/password/reset/token
+  exports.resetPassword = catchAsyncError(async (req, res, next) => {
+
+	//hash urltoken
+	const resetPasswordToken = crypto.create('sha256').update(req.params.token).digest('hex')
+
+	const user=await User.findOne({
+		resetPasswordToken,
+		resetPasswordExpire: { $gt: Date.now()} 
+	})
+
+	if(!user) {
+		return next(new ErrorHandler('Password reset token is invalid or has expired', 400)
+		)
+	}
+
+	//Set new password
+	user.password = req.body.password;
+	user.resetPasswordToken = undefined;
+	user.resetPasswordExpire = undefined;
+
+	await user.save();
+
+	sendToken(user, 200, res)
+})
+
 
 //  login User
 exports.loginUser = catchAsyncError( async(req, res, next) => {

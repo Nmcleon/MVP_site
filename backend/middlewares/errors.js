@@ -7,10 +7,11 @@ module.exports = (err, req, res, next) => {
 
 	//for production 
 	//wrong Mongoose Object ID Error
-	if(err.name === 'CaseError') {
-		const message = `Resource not found. Invalid: ${err.path}`
-		error = new ErrorHandler(message, 400)
-	}
+if(err.name === 'CastError') {
+	const message = `Resource not found. Invalid: ${err.path}`
+	error = new ErrorHandler(message, 400)
+}
+
 
 	//Handle Mongoose Validation Err
 	if(err.name === 'ValidationError') {
