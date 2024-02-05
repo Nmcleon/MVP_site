@@ -19,8 +19,9 @@ module.exports = (err, req, res, next) => {
 	}
 	
 	// Handling Mongoose duplicate ket err
-	f(err.code === 11000) {
+	if(err.code === 11000) {
 		const message = `Duplicate ${Object.keys(err.keyValue)} entered`
+		error = new ErrorHandler(message, 400)
 	}
 
 	res.status(err.statusCode).json({
