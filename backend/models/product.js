@@ -78,6 +78,12 @@ const productSchema = new mongoose.Schema({
       }
     }
   ],
+  /* add use who created produt massive fail
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'User',
+    required: true
+  },*/
   createdAt: {
     type: Date,
     default: Date.now

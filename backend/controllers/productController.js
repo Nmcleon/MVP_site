@@ -1,4 +1,4 @@
-const Product = require('../models/product')
+const Product = require('../models/product');
 
 const ErrorHandler = require('../utils/errorHandler');
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors')
@@ -8,6 +8,13 @@ const APIFeatures = require('../utils/apiFeatures')
 //create new roduct => api/v1/product/new
 exports.newProduct = catchAsyncErrors (async(req, res, next) => {
 
+	 /* massive L
+	  Ensure req.user is available and contains the authenticated user's information
+ if (!req.user) {
+    return next(new AppError('Authentication failed', 401));
+ }
+	req.body.user = req.user.id; // add user who created the product
+	*/
 	const product = await Product.create(req.body);
 
 	res.status(201).json({
