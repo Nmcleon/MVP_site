@@ -16,7 +16,12 @@ module.exports = (err, req, res, next) => {
 	if(err.name === 'ValidationError') {
 		const message = Object.values(err.values).map(value => value.message);
 		error = new ErrorHandler(message, 400) 
-	} 
+	}
+	
+	// Handling Mongoose duplicate ket err
+	f(err.code === 11000) {
+		const message = `Duplicate ${Object.keys(err.keyValue)} entered`
+	}
 
 	res.status(err.statusCode).json({
 		sucess: false,
