@@ -92,7 +92,6 @@ exports.forgotPassword = catchAsyncError(async (req, res, next) => {
 	sendToken(user, 200, res)
 })
 
-
 //  login User
 exports.loginUser = catchAsyncError( async(req, res, next) => {
 	const { email, password } = req.body;
@@ -139,4 +138,15 @@ exports.logout = catchAsyncError(async(req, res, next) => {
 		success: true,
 		message: 'Logged out'
 	})
-}) 
+})
+
+// Get currently logged in user
+exports.getUserProfile = catchAsyncError(async (req, res, next) => {
+    console.log("Inside current User");
+    const user = await User.findById(req.user.id);
+
+    res.status(200).json({
+        success: true,
+        data: user
+    })
+})
