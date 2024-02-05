@@ -140,7 +140,7 @@ exports.logout = catchAsyncError(async(req, res, next) => {
 	})
 })
 
-// Get currently logged in user
+// Get currently logged in user /api/v1/me
 exports.getUserProfile = catchAsyncError(async (req, res, next) => {
     console.log("Inside current User");
     const user = await User.findById(req.user.id);
@@ -150,3 +150,35 @@ exports.getUserProfile = catchAsyncError(async (req, res, next) => {
         data: user
     })
 })
+
+//update / change password => /api/v1/password/update
+// authController
+// authController
+exports.updatePassword = catchAsyncError(async (req, res, next) => {
+    const user = await User.findById(req.user.id).select('+password');
+
+    // Check if the old password is provided in the request body
+    if (!req.body.oldPassword) {
+        return next(new ErrorHandler('Old password is missing', 400));
+    }
+
+    // Check if the old password matches
+    const isMatched = await user.comparePasswords(req.body.oldPassword);
+
+    if (!isMatched) {
+        return next(new ErrorHandler('Old password is incorrect', 400));
+    }
+
+    // Check if the new password is provided in the request body
+    if (!req.body.password) {
+        return next(new ErrorHandler('A password is required', 400));
+    }
+
+    // Update the password
+    user.password = req.body.password;
+    await user.save();
+
+    sendToken(user, 200, res);
+});
+
+
