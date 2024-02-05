@@ -4,7 +4,8 @@ const ErrorHandler = require('../utils/errorHandler');
 const catchAsyncError = require('../middlewares/catchAsyncErrors');
 const { TokenExpiredError } = require('jsonwebtoken');
 const sendToken = require('../utils/jwtToken');
-
+const user = require('../models/user');
+const sendEmail = require('../utils/sendEmail');
 
 // Register a User => /api/v1/register
 
@@ -24,6 +25,44 @@ exports.registerUser = catchAsyncError( async(req, res, next) => {
 
 	sendToken(user, 200, res)
 })
+
+// forgot Password => /api/v1/password/forgot
+exports.forgotPassword = catchAsyncError(async (req, res, next) => {
+	const user = await User.findOne({ email: req.body.email });
+  
+	if (!user) {
+	  return next(new ErrorHandler('USER NOT FOUND WITH THIS EMAIL', 404));
+	}
+  
+	// GET RESET TOKEN
+	const resetToken = user.createResetPasswordToken();
+  
+	await user.save({ validateBeforeSave: false });
+  
+	// create reset password
+	const resetUrl = `${req.protocol}://${req.get(`host`)}/api/v1/password/reset/${resetToken}`;
+  
+	const message = `Your password reset is as follows:\n\n${resetUrl}\n\nIf you have not requested this email, then ignore it.`;
+  
+	try {
+	  await sendEmail({
+		email: user.email,
+		subject: `Lore recovery password`,
+		message,
+	  });
+  
+	  res.status(200).json({
+		success: true,
+		message: `Email sent to: ${user.email}`,
+	  });
+	} catch (err) {
+	  user.resetPasswordToken = undefined;
+	  user.resetPasswordExpire = undefined;
+  
+	  await user.save({ validateBeforeSave: false });
+	  return next(new ErrorHandler(err.message, 500));
+	}
+  })  
 
 //  login User
 exports.loginUser = catchAsyncError( async(req, res, next) => {
