@@ -45,14 +45,14 @@ const orderSchema = mangoose.Schema({
 			},
 			image: {
 				type : String,
-				requires: true
+				required: true
 			},
 			price: {
 				type: Number,
 				required: true
 			},
 			product : {
-				type: mongoose.Schema.type.ObjectId,
+				type: mongoose.Schema.Types.ObjectId,
 				required: true,
 				ref: 'Product'
 			}
@@ -105,4 +105,4 @@ const orderSchema = mangoose.Schema({
 
 })
 
-model.exports = mongoose.model('Order', orderSchema)
+module.exports = mongoose.model('Order', orderSchema);
