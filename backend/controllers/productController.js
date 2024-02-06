@@ -103,3 +103,48 @@ exports.deleteProduct = catchAsyncErrors(async (req, res, next) => {
 		message:  "Product deleted"
 		}) 
 })
+
+
+/** REVIEWS **/
+
+//create new review => /api/v1/review
+//create new review => /api/v1/review
+exports.createProductReview = catchAsyncErrors(async (req, res, next) => {
+    const { rating, comment, productId } = req.body;
+
+    const review = {
+        user: req.user._id,
+        name: req.user.name,
+        rating: Number(rating),
+        comment
+    }
+
+    const product = await Product.findById(productId);
+    
+    if (!product || !product.reviews || !Array.isArray(product.reviews)) {
+        return next(new ErrorHandler('Product or reviews not found', 404));
+    }
+
+    const existingReviewIndex = product.reviews.findIndex(
+        r => r.user && r.user.toString() === req.user._id.toString()
+    );
+
+    if (existingReviewIndex !== -1) {
+        // Update existing review
+        product.reviews[existingReviewIndex].comment = comment;
+        product.reviews[existingReviewIndex].rating = rating;
+    } else {
+        // Add new review
+        product.reviews.push(review);
+        product.numOfReviews = product.reviews.length;
+    }
+
+    product.ratings = product.reviews.reduce((acc, item) => item.rating + acc, 0) / product.reviews.length;
+
+    await product.save({ validateBeforeSave: false });
+
+    res.status(200).json({
+        success: true
+    });
+});
+
