@@ -1,3 +1,5 @@
+const mongoose = require('mongoose');
+
 const Order = require('../models/order');
 const Product = require('../models/product');
 
@@ -35,10 +37,30 @@ exports.newOrder = catchAsyncErrors(async (req, res, next) => {
 })
 
 // Get single order => /api/v1/order/:id
-exports.getSingleOrder = catchAsyncErrors(async(req, res, next) => {
-	const order = await Order.findById(req.params.id).populate('user', 'name email')
+exports.getSingleOrder = catchAsyncErrors(async (req, res, next) => {
+    const order = await Order.findById(req.params.id).populate('user', 'name email');
 
-	if(!oreder) {
-		return net
+    if (!order) {
+        return next(new ErrorHandler('No Order found with this ID', 404));
+    }
+
+    res.status(200).json({
+        success: true,
+        order,
+    });
+});
+
+// Get logged-in user orders => /api/v1/order/me
+exports.myOrder = catchAsyncErrors(async (req, res, next) => {
+	const orders = await Order.find({ user: req.user.id });
+  
+	if (!orders) {
+	  return next(new ErrorHandler('No Orders found for this user', 404));
 	}
-})
+  
+	res.status(200).json({
+	  success: true,
+	  orders,
+	});
+  });
+
