@@ -181,4 +181,91 @@ exports.updatePassword = catchAsyncError(async (req, res, next) => {
     sendToken(user, 200, res);
 });
 
+//update user profile => /api/v1/me/update
+exports.updateProfile = catchAsyncError(async (req, res, next) => {
+	const newUserData = {
+		name:  req.body.name || req.user.name,
+		email: req.body.email || req.user.email
+	}
+
+	//update avatar : TODO LIST
+	const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
+		new: true,
+		runValidators: true,
+		userFindAndModify:false
+	})
+	res.status(200).json({
+		success: true
+	})
+})
+
+
+// Admin routes 
+// all users =>/v1/admin/users
+exports.allUsers = catchAsyncError(async (req, res, next) => {
+	const users = await User.find();
+
+	res.status(200).json({
+		success: true,
+		users
+	})
+})
+
+// Get user deails
+// Get user details
+exports.getUserDetails = catchAsyncError(async (req, res, next) => {
+    try {
+        const user = await User.findById(req.params.id);
+
+        if (!user) {
+            return next(new ErrorHandler(`There is no such user id: ${req.params.id}`));
+        }
+
+        res.status(200).json({
+            success: true,
+            user
+        });
+    } catch (error) {
+        return next(new ErrorHandler(error.message));
+    }
+});
+
+//update user profile => /api/v1/admin/user/:id
+exports.updateUser = catchAsyncError(async (req, res, next) => {
+	const newUserData = {
+		name:  req.body.name || req.user.name,
+		email: req.body.email || req.user.email,
+		role: req.body.role
+	}
+
+	const user = await User.findByIdAndUpdate(req.params.id, newUserData, {
+		new: true,
+		runValidators: true,
+		userFindAndModify:false
+	})
+	res.status(200).json({
+		success: true
+	})
+})
+
+// Delete user details
+exports.deleteUser = catchAsyncError(async (req, res, next) => {
+    try {
+        const user = await User.findById(req.params.id);
+
+        if (!user) {
+            return next(new ErrorHandler(`There is no such user id: ${req.params.id}`));
+        }
+
+        // Remove user from the server
+        await user.deleteOne(); // Use deleteOne() or findOneAndDelete() instead of remove()
+
+        res.status(200).json({
+            success: true,
+            user
+        });
+    } catch (error) {
+        return next(new ErrorHandler(error.message));
+    }
+});
 
