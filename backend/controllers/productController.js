@@ -160,29 +160,67 @@ exports.getProductReviews = catchAsyncErrors(async (req, res, next) => {
 
 // Delete product reviews => /api/v1/reviews
 exports.deleteReviews = catchAsyncErrors(async (req, res, next) => {
-    const product = await Product.findById(req.query.productId);
+    try {
+        const product = await Product.findById(req.query.productId);
 
-    if (!product) {
-        return next(new ErrorHandler('Product not found',  404));
+        if (!product) {
+            return next(new ErrorHandler('No product found with this ID', 404));
+        }
+
+        const reviews = product.reviews.filter(review => review._id.toString() !== req.query.id.toString());
+
+        const numOfReviews = reviews.length;
+
+        const ratings = numOfReviews > 0
+            ? product.reviews.reduce((acc, item) => item.rating + acc, 0) / numOfReviews
+            : 0;
+
+        product.reviews = reviews;
+        product.ratings = ratings;
+        product.numOfReviews = numOfReviews;
+
+        await product.save({ validateBeforeSave: false });
+
+        res.status(200).json({
+            success: true
+        });
+    } catch (err) {
+        return next(new ErrorHandler('Error deleting reviews', 500));
     }
+});
 
-    const reviews = product.reviews.filter(review => review._id.toString() !== req.query.id.toString());
 
-    const numOfReviews = reviews.length; // Corrected variable name
+// Update product reviews => /api/v1/reviews
+exports.updateReviews = catchAsyncErrors(async (req, res, next) => {
+    try {
+        const { rating, comment, productId, reviewId } = req.body;
 
-    const ratings = reviews.reduce((acc, item) => item.rating + acc,  0) / numOfReviews; // Use numOfReviews instead of reviews.length
+        const product = await Product.findById(productId);
 
-    await Product.findByIdAndUpdate(req.query.productId, {
-        reviews,
-        ratings,
-        numberOfReviews: numOfReviews // Set the numberOfReviews field to numOfReviews
-    }, {
-        new: true,
-        runValidators: true,
-        useFindAndModify: false
-    });
+        if (!product || !product.reviews || !Array.isArray(product.reviews)) {
+            return next(new ErrorHandler('Product or reviews not found', 404));
+        }
 
-    res.status(200).json({
-        success: true
-    })
+        const existingReviewIndex = product.reviews.findIndex(
+            r => r._id && r._id.toString() === reviewId.toString()
+        );
+
+        if (existingReviewIndex !== -1) {
+            // Update existing review
+            product.reviews[existingReviewIndex].comment = comment;
+            product.reviews[existingReviewIndex].rating = Number(rating);
+        } else {
+            return next(new ErrorHandler('Review not found', 404));
+        }
+
+        product.ratings = product.reviews.reduce((acc, item) => item.rating + acc, 0) / product.reviews.length;
+
+        await product.save({ validateBeforeSave: false });
+
+        res.status(200).json({
+            success: true
+        });
+    } catch (err) {
+        next(err);
+    }
 })
