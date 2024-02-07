@@ -1,0 +1,267 @@
+[
+	{
+	  "name": "Chardonnay",
+	  "price": 25.99,
+	  "description": "A classic white wine with a smooth taste.",
+	  "ratings": 4.5,
+	  "images": [
+		{
+		  "public_id": "chardonnay-img1",
+		  "url": "https://example.com/chardonnay-img1.jpg"
+		},
+		{
+		  "public_id": "chardonnay-img2",
+		  "url": "https://example.com/chardonnay-img2.jpg"
+		}
+	  ],
+	  "category": "White Wine",
+	  "seller": "WineryXYZ",
+	  "stock": 50,
+	  "numOfReviews": 10,
+	  "reviews": [
+		{
+		  "name": "John Doe",
+		  "rating": 4.5,
+		  "comment": "Great taste, highly recommended!"
+		},
+		{
+		  "name": "Jane Smith",
+		  "rating": 5.0,
+		  "comment": "Excellent wine, will buy again."
+		}
+	  ],
+	  "createdAt": "2024-02-03T00:00:00.000Z"
+	},
+	{
+	  "name": "Merlot",
+	  "price": 18.99,
+	  "description": "A smooth red wine with rich flavors.",
+	  "ratings": 4.2,
+	  "images": [
+		{
+		  "public_id": "merlot-img1",
+		  "url": "https://example.com/merlot-img1.jpg"
+		},
+		{
+		  "public_id": "merlot-img2",
+		  "url": "https://example.com/merlot-img2.jpg"
+		}
+	  ],
+	  "category": "Red Wine",
+	  "seller": "VineyardABC",
+	  "stock": 30,
+	  "numOfReviews": 8,
+	  "reviews": [
+		{
+		  "name": "Alice Johnson",
+		  "rating": 4.0,
+		  "comment": "Enjoyed the depth of flavors."
+		},
+		{
+		  "name": "Bob Williams",
+		  "rating": 4.3,
+		  "comment": "Great value for the price."
+		}
+	  ],
+	  "createdAt": "2024-02-03T00:00:00.000Z"
+	},
+	{
+	  "name": "Sauvignon Blanc",
+	  "price": 22.99,
+	  "description": "A crisp and refreshing white wine with citrus notes.",
+	  "ratings": 4.7,
+	  "images": [
+		{
+		  "public_id": "sauvignon-blanc-img1",
+		  "url": "https://example.com/sauvignon-blanc-img1.jpg"
+		},
+		{
+		  "public_id": "sauvignon-blanc-img2",
+		  "url": "https://example.com/sauvignon-blanc-img2.jpg"
+		}
+	  ],
+	  "category": "White Wine",
+	  "seller": "Vineyard123",
+	  "stock": 40,
+	  "numOfReviews": 12,
+	  "reviews": [
+		{
+		  "name": "Mary Davis",
+		  "rating": 4.8,
+		  "comment": "Absolutely delightful, perfect for summer!"
+		},
+		{
+		  "name": "Robert Green",
+		  "rating": 4.5,
+		  "comment": "A great choice for seafood dishes."
+		}
+	  ],
+	  "createdAt": "2024-02-03T00:00:00.000Z"
+	},
+	{
+	  "name": "Cabernet Sauvignon",
+	  "price": 29.99,
+	  "description": "A bold and full-bodied red wine with dark fruit flavors.",
+	  "ratings": 4.6,
+	  "images": [
+		{
+		  "public_id": "cabernet-sauvignon-img1",
+		  "url": "https://example.com/cabernet-sauvignon-img1.jpg"
+		},
+		{
+		  "public_id": "cabernet-sauvignon-img2",
+		  "url": "https://example.com/cabernet-sauvignon-img2.jpg"
+		}
+	  ],
+	  "category": "Red Wine",
+	  "seller": "CellarMaster",
+	  "stock": 25,
+	  "numOfReviews": 9,
+	  "reviews": [
+		{
+		  "name": "William Turner",
+		  "rating": 4.7,
+		  "comment": "Rich and velvety, a true delight."
+		},
+		{
+		  "name": "Sophia Lewis",
+		  "rating": 4.5,
+		  "comment": "Perfect for cozy evenings by the fireplace."
+		}
+	  ],
+	  "createdAt": "2024-02-03T00:00:00.000Z"
+	},
+	{
+	  "name": "Pinot Noir",
+	  "price": 32.99,
+	  "description": "An elegant red wine with notes of cherry and spice.",
+	  "ratings": 4.4,
+	  "images": [
+		{
+		  "public_id": "pinot-noir-img1",
+		  "url": "https://example.com/pinot-noir-img1.jpg"
+		},
+		{
+		  "public_id": "pinot-noir-img2",
+		  "url": "https://example.com/pinot-noir-img2.jpg"
+		}
+	  ],
+	  "category": "Red Wine",
+	  "seller": "VineyardXYZ",
+	  "stock": 20,
+	  "numOfReviews": 7,
+	  "reviews": [
+		{
+		  "name": "Emily Clark",
+		  "rating": 4.2,
+		  "comment": "Delicious and smooth, great with pasta."
+		},
+		{
+		  "name": "David White",
+		  "rating": 4.6,
+		  "comment": "A wine with character and finesse."
+		}
+	  ],
+	  "createdAt": "2024-02-03T00:00:00.000Z"
+	},
+	{
+	  "name": "Riesling",
+	  "price": 24.99,
+	  "description": "A sweet and aromatic white wine with floral notes.",
+	  "ratings": 4.3,
+	  "images": [
+		{
+		  "public_id": "riesling-img1",
+		  "url": "https://example.com/riesling-img1.jpg"
+		},
+		{
+		  "public_id": "riesling-img2",
+		  "url": "https://example.com/riesling-img2.jpg"
+		}
+	  ],
+	  "category": "White Wine",
+	  "seller": "WineryABC",
+	  "stock": 35,
+	  "numOfReviews": 11,
+	  "reviews": [
+		{
+		  "name": "Jessica Taylor",
+		  "rating": 4.2,
+		  "comment": "Perfect for dessert or a relaxing evening."
+		},
+		{
+		  "name": "Michael Brown",
+		  "rating": 4.4,
+		  "comment": "Lovely balance of sweetness and acidity."
+		}
+	  ],
+	  "createdAt": "2024-02-03T00:00:00.000Z"
+	},
+	{
+	  "name": "Malbec",
+	  "price": 27.99,
+	  "description": "A robust red wine with notes of blackberry and plum.",
+	  "ratings": 4.5,
+	  "images": [
+		{
+		  "public_id": "malbec-img1",
+		  "url": "https://example.com/malbec-img1.jpg"
+		},
+		{
+		  "public_id": "malbec-img2",
+		  "url": "https://example.com/malbec-img2.jpg"
+		}
+	  ],
+	  "category": "Red Wine",
+	  "seller": "CellarCraft",
+	  "stock": 28,
+	  "numOfReviews": 10,
+	  "reviews": [
+		{
+		  "name": "Alex Turner",
+		  "rating": 4.7,
+		  "comment": "Bold and flavorful, great with grilled meats."
+		},
+		{
+		  "name": "Olivia Miller",
+		  "rating": 4.3,
+		  "comment": "A fantastic choice for red wine enthusiasts."
+		}
+	  ],
+	  "createdAt": "2024-02-03T00:00:00.000Z"
+	},
+	{
+	  "name": "Champagne",
+	  "price": 39.99,
+	  "description": "A sparkling wine perfect for celebrations.",
+	  "ratings": 4.8,
+	  "images": [
+		{
+		  "public_id": "champagne-img1",
+		  "url": "https://example.com/champagne-img1.jpg"
+		},
+		{
+		  "public_id": "champagne-img2",
+		  "url": "https://example.com/champagne-img2.jpg"
+		}
+	  ],
+	  "category": "Sparkling Wine",
+	  "seller": "FizzCellars",
+	  "stock": 15,
+	  "numOfReviews": 13,
+	  "reviews": [
+		{
+		  "name": "Sophie Turner",
+		  "rating": 4.9,
+		  "comment": "Elegant and festive, perfect for special occasions."
+		},
+		{
+		  "name": "Daniel Harris",
+		  "rating": 4.7,
+		  "comment": "A delightful choice for toasting and celebrations."
+		}
+	  ],
+	  "createdAt": "2024-02-03T00:00:00.000Z"
+	}
+  ]
+  
