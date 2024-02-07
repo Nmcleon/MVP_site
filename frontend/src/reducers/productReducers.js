@@ -3,7 +3,7 @@ import {
 	ALL_PRODUCTS_SUCCESS,
 	ALL_PRODUCTS_FAIL,
 	CLEAR_ERRORS
-  } from '../constance/productConstance';
+  } from '../constance/productConstants';
   
   
   export const productReducer = (state = { products: [] }, action) => {
