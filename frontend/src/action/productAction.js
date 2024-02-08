@@ -10,11 +10,11 @@ import {
   CLEAR_ERRORS,
 } from '../constance/productConstants';
 
-export const getProducts = () => async (dispatch) => {
+export const getProducts = (currentPage = 1) => async (dispatch) => {
   try {
     dispatch({ type: ALL_PRODUCTS_REQUEST });
 
-    const { data } = await axios.get('/api/v1/products'); // Corrected the API route
+    const { data } = await axios.get(`/api/v1/products?page=${currentPage}`);
 
     dispatch({
       type: ALL_PRODUCTS_SUCCESS,
