@@ -21,6 +21,7 @@ const Home = ({ match }) => {
   const [currentPage, setCurrentPage] = useState(1)
   const [price, setPrice] = useState([1, 35000])
   const [categort, setCategory] = useState('')
+  const [rating, setRating] = useState(0)
 
   const categories = [
     'White Wine',
@@ -41,8 +42,8 @@ const Home = ({ match }) => {
       return alert.error(err);
     }
 
-    dispatch(getProducts(keyword, currentPage, price, category));
-  }, [dispatch, alert, err,  keyword, currentPage, price, category]); 
+    dispatch(getProducts(keyword, currentPage, price, category, rating));
+  }, [dispatch, alert, err,  keyword, currentPage, price, category, rating]); 
 
   function setCurrentpageNo(pageNumber) {
     setCurrentPage(pageNumber);
@@ -101,6 +102,36 @@ const Home = ({ match }) => {
                                 }
                                 >
                                   {category}
+                                </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      <hr className='my-3' />
+
+                      <div className='mt-5'>
+                        <h4 className='mb-3'>
+                          Ratings
+                        </h4>
+
+                        <ul className='pl-0'>
+                          {[5, 4, 3, 2, 1].map(star => (
+                            <li style = {{cursor: 'pointer',
+                                          lineStyleType: 'none'
+                                        }}
+                                key={category}
+                                onClick={() => setRating(star)
+                                }
+                                >
+                                  <div className='rating-outer'>
+
+                                    <div className='rating-inner'
+                                    style={{
+                                      width: `${star * 20}%`
+                                    }}
+                            
+                                  </div>
+                                
                                 </li>
                           ))}
                         </ul>
