@@ -42,7 +42,7 @@ const productSchema = new mongoose.Schema({
         'White Wine',
         'Red Wine',
         'Rose Wine',
-        'Sparkling Wine', // Fixed typo here
+        'Sparkling Wine', 
         'Dessert Wine',
       ],
       message: 'Enter valid category'

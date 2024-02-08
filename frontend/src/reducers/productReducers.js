@@ -22,7 +22,7 @@ import {
 		  loading: false,
 		  products: action.payload.products,
 		  productsCount: action.payload.productsCount,
-		  resPerPage: action.payload.resPerPage
+		  resPerPage: action.payload.resPerPage.filteredProductsCount
 		}
   
 	  case ALL_PRODUCTS_FAIL:

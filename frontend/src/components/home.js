@@ -20,11 +20,20 @@ const Range = createSliderWithTooltip(Slider.Range)
 const Home = ({ match }) => {
   const [currentPage, setCurrentPage] = useState(1)
   const [price, setPrice] = useState([1, 35000])
+  const [categort, setCategory] = useState('')
 
+  const categories = [
+    'White Wine',
+    'Red Wine',
+    'Rose Wine',
+    'Sparkling Wine',
+    'Dessert Wine',
+  ]
 
   const alert = useAlert();
   const dispatch = useDispatch();
-  const { loading, products, err, productCount, resPerPage } = useSelector((state) => state.products);
+  const { loading, products, err, productCount, resPerPage, filteredProductsCount } = 
+  useSelector((state) => state.products);
 
   const keyword = match.prams.keyword
   useEffect(() => {
@@ -32,12 +41,17 @@ const Home = ({ match }) => {
       return alert.error(err);
     }
 
-    dispatch(getProducts(keyword, currentPage, price));
-  }, [dispatch, alert, err,  keyword, currentPage, price]); 
+    dispatch(getProducts(keyword, currentPage, price, category));
+  }, [dispatch, alert, err,  keyword, currentPage, price, category]); 
 
   function setCurrentpageNo(pageNumber) {
     setCurrentPage(pageNumber);
     };
+
+    let count = productCount;
+    if(!keyword) {
+      count = filteredProductsCount
+    }
 
   return (
     <Fragment>
@@ -69,6 +83,29 @@ const Home = ({ match }) => {
                       value={price}
                       onChange={price => setPrice(price)}
                       />
+
+                      <hr className='my-5' />
+
+                      <div className='mt-5'>
+                        <h4 className='mb-3'>
+                          categories
+                        </h4>
+
+                        <ul className='pl-0'>
+                          {categories.map(category => (
+                            <li style = {{cursor: 'pointer',
+                                          lineStyleType: 'none'
+                                        }}
+                                key={category}
+                                onClick={() => selectCategory(category)
+                                }
+                                >
+                                  {category}
+                                </li>
+                          ))}
+                        </ul>
+                      </div>
+
                     </div>
                   </div>
                   <div className='col-6 col-md-9'>
